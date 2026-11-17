@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Fancify Shamcify</title>
+
+		<!-- Fonts (optional — the page still works without internet) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+		<!-- Page design (neo-brutalist "sticker" style, made popular on Pinterest/Dribbble) -->
+		<style>
+			:root {
+				--ink: #1b1b1b;
+				--paper: #fff8ec;
+				--butter: #ffe27a;
+				--mint: #a8e6cf;
+				--pink: #ffb3c7;
+				--sky: #9fd3ff;
+				--radius: 14px;
+				--shadow: 5px 5px 0 var(--ink);
+			}
+
+			* { box-sizing: border-box; }
+
+			body {
+				margin: 0;
+				min-height: 100vh;
+				font-family: "Bricolage Grotesque", system-ui, -apple-system, "Segoe UI", sans-serif;
+				color: var(--ink);
+				background-color: var(--paper);
+				/* playful "cow spots" pattern for the Moo theme */
+				background-image:
+					radial-gradient(ellipse 60px 42px at 12% 18%, #1b1b1b14 98%, transparent),
+					radial-gradient(ellipse 38px 52px at 85% 12%, #1b1b1b14 98%, transparent),
+					radial-gradient(ellipse 70px 46px at 78% 82%, #1b1b1b14 98%, transparent),
+					radial-gradient(ellipse 44px 30px at 8% 88%, #1b1b1b14 98%, transparent);
+				background-attachment: fixed;
+				display: flex;
+				justify-content: center;
+				padding: 40px 16px;
+			}
+
+			main {
+				width: 100%;
+				max-width: 560px;
+			}
+
+			h1 {
+				font-size: clamp(2.2rem, 7vw, 3.4rem);
+				font-weight: 800;
+				line-height: 1;
+				margin: 0 0 6px;
+				letter-spacing: -0.02em;
+			}
+
+			h1 span {
+				background: var(--butter);
+				border: 3px solid var(--ink);
+				border-radius: 10px;
+				padding: 0 10px;
+				box-shadow: var(--shadow);
+				display: inline-block;
+				transform: rotate(-2deg);
+			}
+
+			.tagline {
+				font-family: "Caveat", cursive;
+				font-size: 1.6rem;
+				margin: 18px 0 28px;
+			}
+
+			/* ---------- Bordered fieldset boxes ---------- */
+			fieldset {
+				background: #fff;
+				border: 3px solid var(--ink);
+				border-radius: var(--radius);
+				box-shadow: var(--shadow);
+				padding: 22px 20px 20px;
+				margin: 0 0 30px;
+			}
+
+			legend {
+				font-weight: 800;
+				font-size: 1.05rem;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				background: var(--mint);
+				border: 3px solid var(--ink);
+				border-radius: 999px;
+				padding: 4px 16px;
+			}
+
+			#fancifyBox legend { background: var(--pink); }
+
+			/* ---------- Text area ---------- */
+			textarea {
+				display: block;
+				width: 100%;            /* stretches nicely; cols="30" is still set in HTML */
+				font-family: inherit;
+				font-size: 1rem;
+				line-height: 1.4;
+				padding: 12px 14px;
+				border: 2px solid var(--ink);
+				border-radius: 10px;
+				background: #fffdf7;
+				resize: vertical;
+				transition: font-size 0.25s ease;
+			}
+
+			textarea:focus {
+				outline: 3px solid var(--sky);
+				outline-offset: 2px;
+			}
+
+			.hint {
+				font-size: 0.85rem;
+				opacity: 0.7;
+				margin: 10px 0 0;
+			}
+
+			/* ---------- Buttons ---------- */
+			.row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 14px;
+				align-items: center;
+			}
+
+			.row + .row { margin-top: 18px; }
+
+			button {
+				font: inherit;
+				font-weight: 800;
+				font-size: 1.05rem;
+				cursor: pointer;
+				border: 3px solid var(--ink);
+				border-radius: 12px;
+				padding: 10px 20px;
+				box-shadow: 4px 4px 0 var(--ink);
+				transition: transform 0.1s ease, box-shadow 0.1s ease;
+			}
+
+			button:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+			button:active { transform: translate(4px, 4px); box-shadow: 0 0 0 var(--ink); }
+			button:focus-visible { outline: 3px solid var(--sky); outline-offset: 3px; }
+
+			#biggerBtn { background: var(--butter); }
+			#mooBtn { background: var(--sky); }
+
+			/* ---------- Radio buttons as pill toggles ---------- */
+			.choice {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				cursor: pointer;
+				font-weight: 700;
+				border: 3px solid var(--ink);
+				border-radius: 999px;
+				padding: 8px 16px;
+				background: #fff;
+				transition: background 0.15s ease;
+			}
+
+			.choice input {
+				accent-color: var(--ink);
+				width: 18px;
+				height: 18px;
+				margin: 0;
+				cursor: pointer;
+			}
+
+			.choice:has(input:checked) { background: var(--mint); box-shadow: 3px 3px 0 var(--ink); }
+			.choice:has(input:focus-visible) { outline: 3px solid var(--sky); outline-offset: 3px; }
+
+			footer {
+				font-size: 0.85rem;
+				text-align: center;
+				opacity: 0.65;
+			}
+		</style>
+
+		<!-- link to your script file here -->
+		<script src="fancifymytext.js"></script>
+	</head>
+
+	<body>
+		<main>
+			<h1><span>Fancify my Text</span></h1>
+			<p class="tagline">Type something, then make it fancy (or moo).</p>
+
+			<!-- Your UI controls go here -->
+
+			<!-- Box 1: the text -->
+			<fieldset>
+				<legend>Text</legend>
+				<textarea id="userText" rows="4" cols="30"
+					placeholder="The cow jumped over the moon. It was very proud of itself."></textarea>
+				<p class="hint">Tip: end your sentences with a period, then hit Moo.</p>
+			</fieldset>
+
+			<!-- Box 2: the controls -->
+			<fieldset id="fancifyBox">
+				<legend>Fancify</legend>
+
+				<div class="row">
+					<button type="button" id="biggerBtn" onclick="makeBigger()">Bigger!</button>
+					<button type="button" id="mooBtn" onclick="moo()">Moo</button>
+				</div>
+
+				<div class="row">
+					<label class="choice">
+						<input type="radio" name="style" id="fancyShmancy" onchange="changeStyle()">
+						FancyShmancy
+					</label>
+					<label class="choice">
+						<input type="radio" name="style" id="boringBetty" onchange="changeStyle()" checked>
+						BoringBetty
+					</label>
+				</div>
+			</fieldset>
+
+			<footer>CSC 196A &middot; Assignment 5 &middot; Fun with JavaScript</footer>
+		</main>
+	</body>
+</html>
